@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--<link rel="stylesheet" href="index.css">-->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  perspective: 1000px;
+  background-color: #121929;
+}
+
+.container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  min-height: 88vh;
+  width: 25rem;
+  box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  padding: 0rem 2rem;
+  transform-style: preserve-3d;
+  background-color:lightcyan;
+}
+
+.sneaker {
+  min-height: 35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.sneaker img {
+  width: 13rem;
+  z-index: 2;
+  transition: all 0.75s ease-out;
+}
+
+.circle {
+  width: 7rem;
+  height: 7rem;
+  background: linear-gradient(
+    to right,
+    rgba(245, 70, 66, 0.75),
+    rgba(8, 83, 156, 0.75)
+  );
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.info h1 {
+  font-size: 1.7rem;
+  transition: all 0.75s ease-out;
+}
+
+.info h3 {
+  font-size: 1rem;
+  padding: 2rem 0rem;
+  color: #585858;
+  font-weight: lighter;
+  transition: all 0.75s ease-out;
+}
+
+.sizes {
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.75s ease-out;
+}
+
+.sizes button {
+  padding: 0.5rem 2rem;
+  background: none;
+  border: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: inherit;
+  color: #585858;
+}
+
+button.active {
+  color: white;
+  background-color: #585858;
+}
+
+.purchase {
+  margin-top: 3rem;
+  transition: all 0.75s ease-out;
+}
+
+.purchase button {
+  width: 100%;
+  padding: 1rem 0rem;
+  background: #f54642;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: bolder;
+  font-family: inherit;
+}
+
+@media screen and (min-width: 740px) {
+  .card {
+    width: 35rem;
+    padding: 0rem 5rem;
+  }
+
+  .sneaker img {
+    width: 20rem;
+  }
+
+  .circle {
+    width: 15rem;
+    height: 15rem;
+  }
+
+  .info h1 {
+    font-size: 3rem;
+  }
+
+  .info h3 {
+    font-size: 1.3rem;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+          <div class="sneaker">
+            <div class="circle"></div>
+            <img src="shoe-transformed.png" alt="adidas" />
+          </div>
+          <div class="info">
+            <h1 class="title">Wave Rider 25</h1>
+            <h3>
+
+                The WAVE RIDER, born in 1997, has been beloved worldwide for its smooth ride.
+            </h3>
+            <div class="sizes">
+              <button>39</button>
+              <button>40</button>
+              <button class="active">42</button>
+              <button>44</button>
+            </div>
+            <div class="purchase">
+              <button>Purchase</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--<script src="index.js"></script>-->
+      <script>
+        // Movement Animation to happen
+const card = document.querySelector(".card");
+const container = document.querySelector(".container");
+
+// Items
+const title = document.querySelector(".title");
+const sneaker = document.querySelector(".sneaker img");
+const purchase = document.querySelector(".purchase");
+const description = document.querySelector(".info h3");
+const sizes = document.querySelector(".sizes");
+
+// Moving animation event
+container.addEventListener("mousemove", (e) => {
+  let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+  let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+  card.style.transform = `rotateX(${yAxis}deg) rotateY(${xAxis}deg)`;
+});
+
+// Animate In
+container.addEventListener("mouseenter", (e) => {
+  card.style.transition = "none";
+  // Popout
+  title.style.transform = "translateZ(150px)";
+  sneaker.style.transform = "translateZ(200px) rotateZ(-45deg)";
+  description.style.transform = "translateZ(125px)";
+  sizes.style.transform = "translateZ(100px)";
+  purchase.style.transform = "translateZ(75px)";
+});
+
+// Animate Out
+container.addEventListener("mouseleave", (e) => {
+  card.style.transition = "all 0.5s ease";
+  card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+  //Popback
+  title.style.transform = "translateZ(0px)";
+  sneaker.style.transform = "translateZ(0) rotateZ(0deg)";
+  description.style.transform = "translateZ(0px)";
+  sizes.style.transform = "translateZ(0px)";
+  purchase.style.transform = "translateZ(0px)";
+});
+
+      </script>
+</body>
+</html>
